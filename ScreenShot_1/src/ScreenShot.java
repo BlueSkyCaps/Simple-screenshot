@@ -25,7 +25,7 @@ public class ScreenShot extends JFrame implements MouseListener{
 	/*
 	 * @author ZREO
 	 * @name ScreenShot 1.0
-	 * @describe:this is a simple screen shot by java for 1.8u
+	 * @describe:this is a simple screen shot by java
 	 */
 	private static final long serialVersionUID = -4307926428530522814L;
 	JFrame jf;
@@ -34,50 +34,38 @@ public class ScreenShot extends JFrame implements MouseListener{
 	JPanel jp;
 	Robot rb;
 	int mouseX,mouseY,releaseX,releaseY;
-	// »ñÈ¡Ä¬ÈÏ¹¤¾ß°ü
 	Toolkit tk = Toolkit.getDefaultToolkit();
-	// »ñÈ¡ÏÔÊ¾Æ÷ÏñËØ´óĞ¡
 	Dimension dm = tk.getScreenSize();
 
 	public static void main(String[] args) {
-		// ´´½¨³ÌĞòÆô¶¯¶ÔÏó
+		// ç¨‹åºå¯åŠ¨å¯¹è±¡
 		new ScreenShot();
 	}
 	
 	public ScreenShot() {
-		 // ´´½¨´°¿Ú¶ÔÏó
 		 jf = new JFrame();
-		 // ´´½¨Ãæ°å¶ÔÏó
 		 jp = new JPanel();
-		 // ´´½¨°´Å¥¶ÔÏó
-		 wholeScreen = new JButton("È«ÆÁ½ØÍ¼");
-		 anySize = new JButton("¾ØĞÎ½ØÍ¼");
-		 // °´Å¥½ûÓÃ½¹µã
+		 wholeScreen = new JButton("å…¨å±æˆªå›¾");
+		 anySize = new JButton("çŸ©å½¢æˆªå›¾");
+		 // æŒ‰é’®ç¦ç”¨ç„¦ç‚¹
 		 wholeScreen.setFocusPainted(false);
 		 anySize.setFocusPainted(false);
-		 // ÉèÖÃ°´Å¥±³¾°É«
 		 wholeScreen.setBackground(Color.WHITE);		  
 		 anySize.setBackground(Color.WHITE);
-		 // ½«°´Å¥Ìí¼ÓÖÁÃæ°å
 		 jp.add(wholeScreen);
 		 jp.add(anySize);
-		 // ½«Ãæ°åÌí¼ÓÔÚ´°¿Ú¶ÔÏó
 		 jf.add(jp);
-		 // ÉèÖÃ¾ÓÖĞÏÔÊ¾
 		 jf.setLocationRelativeTo(null);
 		 jf.setSize(230,70);
-		 // ´´½¨Í¼±ê¶ÔÏó
+		 // åˆ›å»ºå›¾æ ‡å¯¹è±¡
 	   	 ImageIcon icon =  new ImageIcon("image/icon1.jpg");
-	   	 // ÉèÖÃÍ¼±ê
 		 jf.setIconImage(icon.getImage());
-		 jf.setTitle("½ØÍ¼");
-		 // ÏÔÊ¾´°¿ÚÊµÀı
+		 jf.setTitle("æˆªå›¾");
+
 		 jf.setVisible(true);
-		 // ÉèÖÃ³ÌĞòÄ¬ÈÏÍË³öÄ£Ê½
 		 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 // ½ûÓÃ´óĞ¡
 		 jf.setResizable(false);
-		 // Ìí¼Ó¼àÌıÊÂ¼ş
+		 // æ·»åŠ ç›‘å¬äº‹ä»¶
 		 wholeScreen.addMouseListener(this);
 		 anySize.addMouseListener(this);
 		
@@ -85,35 +73,31 @@ public class ScreenShot extends JFrame implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		/*
-		 *ÏìÓ¦È«ÆÁ½ØÍ¼ÊÂ¼şÂß¼­ 
+		 *å“åº”å…¨å±æˆªå›¾äº‹ä»¶
 		 */
 		if(e.getSource()== wholeScreen){
-			// Èë¿Ú´°¿Ú²»¿É¼û
+			// å…¥å£çª—å£ä¸å¯è§
 			jf.setVisible(false);		
 			try {
-				// »ñÈ¡»úÆ÷ÈË¶ÔÏó
 				rb = new Robot();
 			} catch (AWTException eo) {
 				eo.printStackTrace();
 			}
 			try {
-				// Ïß³ÌÍ£Ö¹Ò»Ãë
 				Thread.sleep(1000);
-				// ·µ»ØÏÔÊ¾Æ÷¿í¸ß
+				// è¿”å›æ˜¾ç¤ºå™¨å®½é«˜
 				Rectangle rc = new Rectangle(0,0,(int)dm.getWidth(),(int)dm.getHeight());
-				// µ÷ÓÃ»úÆ÷ÈË, »ñÈ¡ÍêÕû´°¿ÚÏñËØ
+				// è°ƒç”¨æœºå™¨äºº, è·å–å®Œæ•´çª—å£åƒç´ å¤§å°
 			    BufferedImage buimg = rb.createScreenCapture(rc);
-			    // »ñÈ¡windows×ÀÃæ¾ø¶ÔÂ·¾¶
+			    // è·å–windowsæ¡Œé¢ç»å¯¹è·¯å¾„
 			    File filePath2 = FileSystemView.getFileSystemView().getHomeDirectory();
-			    // »ñÈ¡ÈÕÆÚ¶ÔÏó
 			    SimpleDateFormat fmt2 = new SimpleDateFormat("MMddHHmmss");
-			    // ¸ñÊ½»¯ÈÕÆÚÏÔÊ¾¸ñÊ½
 			    String fdate2 = fmt2.format(new Date());
 //			    System.out.println(filePath2);
-			    // Êä³öÍ¼Æ¬
+			    // è¾“å‡ºå›¾ç‰‡
 			    ImageIO.write(buimg, "png", new File(filePath2+File.separator+fdate2+"catch.jpg"));
-		        JOptionPane.showMessageDialog(null, "   ½ØÍ¼ÒÑ³É¹¦±£´æÖÁ×ÀÃæ£¡");
-		        // ÏÔÊ¾Ö÷´°¿Ú
+		        JOptionPane.showMessageDialog(null, "   æˆªå›¾å·²æˆåŠŸä¿å­˜è‡³æ¡Œé¢ï¼");
+		        // æ˜¾ç¤ºä¸»çª—å£
 			    jf.setVisible(true);
 			    
 			} catch (InterruptedException | IOException ex) {
@@ -121,14 +105,14 @@ public class ScreenShot extends JFrame implements MouseListener{
 			}
 		}
 		/*
-		 *ÏìÓ¦¾ØĞÎ½ØÍ¼ÊÂ¼şÂß¼­ 
+		 *å“åº”çŸ©å½¢æˆªå›¾äº‹ä»¶
 		 */
 		if(e.getSource()==anySize) {			
 			try {
-				// Òş²ØÖ÷´°¿Ú
+				// éšè—ä¸»çª—å£
 				jf.setVisible(false);
 				Thread.sleep(1000);
-				// ´´½¨¾ØĞÎ½ØÍ¼ÊµÀı
+				// åˆ›å»ºçŸ©å½¢æˆªå›¾å®ä¾‹
 				new RectangleShot();
 			} catch (InterruptedException e1) {			
 				e1.printStackTrace();
@@ -137,7 +121,7 @@ public class ScreenShot extends JFrame implements MouseListener{
   }
 	
     /*
-     * Î´ÊµÏÖµÄ·½·¨
+     * æœªå®ç°çš„æ–¹æ³•
      */
 	public void mousePressed(MouseEvent e1) {}
 	public void mouseReleased(MouseEvent e2) {}
