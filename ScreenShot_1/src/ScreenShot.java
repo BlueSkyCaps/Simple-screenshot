@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileSystemView;
 
 public class ScreenShot extends JFrame implements MouseListener{
-	/*
+	/**
 	 * @author ZREO
 	 * @name ScreenShot 1.0
 	 * @describe:this is a simple screen shot by java
@@ -104,6 +104,7 @@ public class ScreenShot extends JFrame implements MouseListener{
 				ex.printStackTrace();
 			}
 		}
+		
 		/*
 		 *响应矩形截图事件
 		 */
