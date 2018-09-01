@@ -1,2 +1,2 @@
 # Simple-screenshot
-简单的截图程序
+java写的简单的截图程序。
