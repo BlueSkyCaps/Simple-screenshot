@@ -24,10 +24,6 @@ import static java.lang.Thread.sleep;
 
 public class RectangleShot extends JWindow implements MouseMotionListener{
  
-	/**
-	 * note: Èç¹ûÓÃJPanelÌí¼ÓJLabelÀ´ÊµÏÖµÄ»°£¬´°¿Ú¶¥²¿»á³öÏÖ±ß¿òÀ¸¡£ÕâÊÇJPanelÔÚJWindowÖĞµ¼ÖÂµÄ¡£
-	 * ²»ĞèÒªJPanelÀ´»æÖÆ£¬Ö±½ÓÊ¹ÓÃJLabelÀ´ÊµÏÖ¿ÉÒÔ±ÜÃâ´ËÎÊÌâ¡£
-	 */
 	
 	private static final long serialVersionUID = 653148943638627173L;
 	JWindow jw = new JWindow();
@@ -40,70 +36,70 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
     int ifClose = 1;
 
 	public static void main(String[] args) {
-		// Æô¶¯
+		// å¯åŠ¨
 		new RectangleShot();
 	}
 	public RectangleShot (){
-		// ½«±êÇ©¶ÔÏóÌí¼ÓÖÁ´°¿Ú
+	
 	    jw.add(jl);	   
-	    // »ñÈ¡ÆÁÄ»´óĞ¡
+	    
 	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize(); 
-	    // ÉèÖÃ´°¿ÚÏÔÊ¾Î»ÖÃ
+	   
 	    jw.setBounds(0, 0, d.width, d.height);
 	    jw.setVisible(true);   	   
-	    // Ìí¼Ó¼àÌı
+	  
 	    jl.addMouseMotionListener(this);
 	    robot = null;
 		try {
-			// ´´½¨»úÆ÷ÈËÊµÀı
+			// åˆ›å»ºæœºå™¨äººå®ä¾‹
 			robot = new Robot();
 		} catch (AWTException e1) {
 			e1.printStackTrace();
 		}
-		// »ñÈ¡ÆÁÄ»ÏñËØ
+		// è·å–å±å¹•åƒç´ 
 	    image = robot.createScreenCapture(new Rectangle(0, 0, d.width,d.height));
 	    jl.setIcon(new ImageIcon(image));
 	    jl.addMouseListener(new MouseAdapter() {			
 	    	
 			public void mousePressed(MouseEvent e) {
-				//ÖØĞÂ½ØÍ¼Ê±ÒÆ³ıÉÏ´ÎµÄjl,·ÀÖ¹¾ØĞÎ¿ò¶¥²ã¸²¸Ç
+				//é‡æ–°æˆªå›¾æ—¶ç§»é™¤ä¸Šæ¬¡çš„jl,é˜²æ­¢çŸ©å½¢æ¡†é¡¶å±‚è¦†ç›–
 				jw.remove(jl);
 				jl.setIcon(new ImageIcon(image));
-				jw.add(jl);  // ÔÙ´ÎÔØÈë×îÏÈ½ØÍ¼
-				jw.repaint();  // ÖØ»æ´°¿Ú
-				// »ñÈ¡Ö¸Õë×ø±ê
+				jw.add(jl);  // å†æ¬¡è½½å…¥æœ€å…ˆæˆªå›¾
+				jw.repaint();  // é‡ç»˜çª—å£
+				// è·å–æŒ‡é’ˆåæ ‡
 				originX=e.getX();
 				originY=e.getY();						
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// »ñÈ¡ÊÍ·Å×ø±ê
+				// è·å–é‡Šæ”¾åæ ‡
 				releaseX = e.getX();
 				releaseY = e.getY();
 				g.setColor(Color.red);
-				// »æÖÆ¾ØĞÎÏÔÊ¾ÇøÓò
+			
 				g.drawRect(originX-1, originY-1, releaseX-originX, releaseY-originY);
-				// »ñÈ¡¾ØĞÎ¿í¸ß
+				// è·å–çŸ©å½¢å®½é«˜
 				clearW = releaseX-originX;
 				clearH = releaseY-originY;
-				// ´æ´¢ÁÙÊ±½ØÍ¼
+				// å­˜å‚¨ä¸´æ—¶æˆªå›¾
 				saveImage = robot.createScreenCapture(new Rectangle(
 						originX,originY, clearW-1,clearH-1));
-				// ·µ»ØÏìÓ¦´úÂë
+				
 				int option = JOptionPane.showConfirmDialog(null, ""
-						+ "           ÊÇ·ñ±£´æ½ØÍ¼£¿", null, 0);
+						+ "           æ˜¯å¦ä¿å­˜æˆªå›¾ï¼Ÿ", null, 0);
 				if(option==1) {
-					// ÖØĞÂ½ØÍ¼
+					// é‡æ–°æˆªå›¾
 					jw.setVisible(true);
 					mousePressed(e);					
 				}
 				else if(option==0){
-					// ·µ»Ø×îÖÕÏñËØ
+					// è¿”å›æœ€ç»ˆåƒç´ 
 					try {
-						// ±£´æ½ØÍ¼
+						// ä¿å­˜æˆªå›¾
 						saveShot();
-						// ÏÔÊ¾Ö÷´°¿Ú
+						// æ˜¾ç¤ºä¸»çª—å£
 						jw.dispose();
 						new ScreenShot().jf.setVisible(true);
 					} catch (IOException e1) {
@@ -112,7 +108,6 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 					}
 				}
 		        else {		        	
-		        	// ÏÔÊ¾Ö÷´°¿Ú
 		        	jw.dispose(); 	
 		        	new ScreenShot().jf.setVisible(true);
 		        }	
@@ -121,28 +116,28 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 	}
 
 	/*
-	 * ÏìÓ¦Êó±êÍÏ×§ÊÂ¼ş
+	 * å“åº”é¼ æ ‡æ‹–æ‹½äº‹ä»¶
 	 */
 	public void mouseDragged(MouseEvent e) {
 		endX = e.getX();
 		endY = e.getY();	
-		// ·µ»Ø±êÇ©×é¼şµ±Ç°µÄ»æÖÆ¶ÔÏó
+		// è¿”å›æ ‡ç­¾ç»„ä»¶å½“å‰çš„ç»˜åˆ¶å¯¹è±¡
 		g = jl.getGraphics();
 		g.setColor(Color.red);
-		System.out.println("ÍÏ×§");		
+		System.out.println("æ‹–æ‹½");		
 	}
 	
 	public void saveShot() throws IOException {
-		 // »ñÈ¡windows×ÀÃæ¾ø¶ÔÂ·¾¶
+		 // è·å–windowsæ¡Œé¢ç»å¯¹è·¯å¾„
 		 File filePath = FileSystemView.getFileSystemView().getHomeDirectory();
-		 // »ñÈ¡ÈÕÆÚ¶ÔÏó
+	
 		 SimpleDateFormat fmt = new SimpleDateFormat("MMddHHmmss");
-		 // ¸ñÊ½»¯ÈÕÆÚ¶ÔÏó
+		
 	     String fdate = fmt.format(new Date());
 	     System.out.println(filePath);
-	     // Êä³öÍ¼Æ¬
+	     // è¾“å‡ºå›¾ç‰‡
 		 ImageIO.write(saveImage, "png", new File(filePath+File.separator+fdate+"catch.jpg"));
-		 JOptionPane.showMessageDialog(null, "      ½ØÍ¼ÒÑ³É¹¦±£´æÖÁ×ÀÃæ£¡");
+		 JOptionPane.showMessageDialog(null, "      æˆªå›¾å·²æˆåŠŸä¿å­˜è‡³æ¡Œé¢ï¼");
 	}
 
 	public void mouseMoved(MouseEvent e) {}
