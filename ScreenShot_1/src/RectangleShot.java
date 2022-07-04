@@ -20,11 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 import javax.swing.filechooser.FileSystemView;
 
-import static java.lang.Thread.sleep;
-
 public class RectangleShot extends JWindow implements MouseMotionListener{
- 
-	
+
 	private static final long serialVersionUID = 653148943638627173L;
 	JWindow jw = new JWindow();
 	Graphics g;
@@ -32,13 +29,8 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 	BufferedImage image,saveImage;
 	int originX,originY,releaseX,releaseY,endX,endY; 
 	int clearW,clearH;
-    JLabel jl = new JLabel(); 
-    int ifClose = 1;
+    JLabel jl = new JLabel();
 
-	public static void main(String[] args) {
-		// 启动
-		new RectangleShot();
-	}
 	public RectangleShot (){
 	
 	    jw.add(jl);	   
@@ -59,8 +51,8 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 		// 获取屏幕像素
 	    image = robot.createScreenCapture(new Rectangle(0, 0, d.width,d.height));
 	    jl.setIcon(new ImageIcon(image));
-	    jl.addMouseListener(new MouseAdapter() {			
-	    	
+	    jl.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mousePressed(MouseEvent e) {
 				//重新截图时移除上次的jl,防止矩形框顶层覆盖
 				jw.remove(jl);
@@ -109,7 +101,7 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 				}
 		        else {		        	
 		        	jw.dispose(); 	
-		        	new ScreenShot().jf.setVisible(true);
+		        	new ScreenShot();
 		        }	
 			}
 	    });	    
@@ -118,6 +110,7 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 	/*
 	 * 响应鼠标拖拽事件
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		endX = e.getX();
 		endY = e.getY();	
@@ -126,19 +119,22 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 		g.setColor(Color.red);
 		System.out.println("拖拽");		
 	}
-	
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+	}
+
 	public void saveShot() throws IOException {
 		 // 获取windows桌面绝对路径
 		 File filePath = FileSystemView.getFileSystemView().getHomeDirectory();
 	
 		 SimpleDateFormat fmt = new SimpleDateFormat("MMddHHmmss");
 		
-	     String fdate = fmt.format(new Date());
+	     String dateFormat = fmt.format(new Date());
 	     System.out.println(filePath);
 	     // 输出图片
-		 ImageIO.write(saveImage, "png", new File(filePath+File.separator+fdate+"catch.jpg"));
+		 ImageIO.write(saveImage, "png", new File(filePath+File.separator+ dateFormat +"catch.jpg"));
 		 JOptionPane.showMessageDialog(null, "      截图已成功保存至桌面！");
 	}
-
-	public void mouseMoved(MouseEvent e) {}
 }

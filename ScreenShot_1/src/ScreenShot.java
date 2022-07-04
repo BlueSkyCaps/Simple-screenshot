@@ -20,20 +20,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileSystemView;
-
+/**
+ * @author ZREO
+ * ScreenShot 1.0
+ * this is a simple screenshot by java
+ */
 public class ScreenShot extends JFrame implements MouseListener{
-	/**
-	 * @author ZREO
-	 * @name ScreenShot 1.0
-	 * @describe:this is a simple screen shot by java
-	 */
+
 	private static final long serialVersionUID = -4307926428530522814L;
 	JFrame jf;
 	JLabel jl;
-	JButton wholeScreen,anySize,bd,be;
+	JButton wholeScreenBtn;
+	JButton anySizeBtn;
 	JPanel jp;
 	Robot rb;
-	int mouseX,mouseY,releaseX,releaseY;
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	Dimension dm = tk.getScreenSize();
 
@@ -45,15 +45,15 @@ public class ScreenShot extends JFrame implements MouseListener{
 	public ScreenShot() {
 		 jf = new JFrame();
 		 jp = new JPanel();
-		 wholeScreen = new JButton("全屏截图");
-		 anySize = new JButton("矩形截图");
+		 wholeScreenBtn = new JButton("全屏截图");
+		 anySizeBtn = new JButton("矩形截图");
 		 // 按钮禁用焦点
-		 wholeScreen.setFocusPainted(false);
-		 anySize.setFocusPainted(false);
-		 wholeScreen.setBackground(Color.WHITE);		  
-		 anySize.setBackground(Color.WHITE);
-		 jp.add(wholeScreen);
-		 jp.add(anySize);
+		 wholeScreenBtn.setFocusPainted(false);
+		 anySizeBtn.setFocusPainted(false);
+		 wholeScreenBtn.setBackground(Color.WHITE);
+		 anySizeBtn.setBackground(Color.WHITE);
+		 jp.add(wholeScreenBtn);
+		 jp.add(anySizeBtn);
 		 jf.add(jp);
 		 jf.setLocationRelativeTo(null);
 		 jf.setSize(230,70);
@@ -66,16 +66,15 @@ public class ScreenShot extends JFrame implements MouseListener{
 		 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 jf.setResizable(false);
 		 // 添加监听事件
-		 wholeScreen.addMouseListener(this);
-		 anySize.addMouseListener(this);
-		
+		 wholeScreenBtn.addMouseListener(this);
+		 anySizeBtn.addMouseListener(this);
 	}
 	
 	public void mouseClicked(MouseEvent e) {
 		/*
 		 *响应全屏截图事件
 		 */
-		if(e.getSource()== wholeScreen){
+		if(e.getSource()== wholeScreenBtn){
 			// 入口窗口不可见
 			jf.setVisible(false);		
 			try {
@@ -88,14 +87,13 @@ public class ScreenShot extends JFrame implements MouseListener{
 				// 返回显示器宽高
 				Rectangle rc = new Rectangle(0,0,(int)dm.getWidth(),(int)dm.getHeight());
 				// 调用机器人, 获取完整窗口像素大小
-			    BufferedImage buimg = rb.createScreenCapture(rc);
+			    BufferedImage buImg = rb.createScreenCapture(rc);
 			    // 获取windows桌面绝对路径
-			    File filePath2 = FileSystemView.getFileSystemView().getHomeDirectory();
-			    SimpleDateFormat fmt2 = new SimpleDateFormat("MMddHHmmss");
-			    String fdate2 = fmt2.format(new Date());
-//			    System.out.println(filePath2);
+			    File homePath = FileSystemView.getFileSystemView().getHomeDirectory();
+			    SimpleDateFormat dataFormat = new SimpleDateFormat("MMddHHmmss");
+			    String dataStr = dataFormat.format(new Date());
 			    // 输出图片
-			    ImageIO.write(buimg, "png", new File(filePath2+File.separator+fdate2+"catch.jpg"));
+			    ImageIO.write(buImg, "png", new File(homePath+File.separator+dataStr+"catch.jpg"));
 		        JOptionPane.showMessageDialog(null, "   截图已成功保存至桌面！");
 		        // 显示主窗口
 			    jf.setVisible(true);
@@ -108,7 +106,7 @@ public class ScreenShot extends JFrame implements MouseListener{
 		/*
 		 *响应矩形截图事件
 		 */
-		if(e.getSource()==anySize) {			
+		if(e.getSource()== anySizeBtn) {
 			try {
 				// 隐藏主窗口
 				jf.setVisible(false);
@@ -128,6 +126,5 @@ public class ScreenShot extends JFrame implements MouseListener{
 	public void mouseReleased(MouseEvent e2) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void showCorPanel() {}
 
 }
