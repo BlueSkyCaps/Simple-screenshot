@@ -208,29 +208,12 @@ public class ScreenShot extends JFrame implements MouseListener{
 			@Override
 			protected Void doInBackground() throws Exception {
 				anySizeStart(bufferedImage);
-				toClick();
 				return null;
 			}
 		};
 		return wake;
 	}
 
-
-	private void toClick() throws AWTException {
-		// jf.setAlwaysOnTop(true);
-		// jf.setVisible(true);
-		// Robot robot = new Robot();
-		// int x = jf.getX();
-		// int y = jf.getY();
-		// robot.mouseMove(jf.getX()+5, jf.getY()+5);
-		// System.out.printf(x+" "+y);
-		// robot.delay(500);
-		// robot.mousePress(InputEvent.BUTTON1_MASK);
-		// robot.delay(500);
-		// robot.mouseRelease(InputEvent.BUTTON1_MASK);
-		// robot.delay(500);
-		// jf.setAlwaysOnTop(false);
-	}
 	/*
      * 未实现的方法
      */

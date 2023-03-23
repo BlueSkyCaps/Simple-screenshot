@@ -57,6 +57,7 @@ public class RectangleShot extends JWindow implements MouseMotionListener{
 		}
 		Thread.sleep(1000);
 	    jl.setIcon(new ImageIcon(_bufferIconImage));
+		// jw.setOpacity(0.1f);
 		//
 		jw.setVisible(true);
 		/*
